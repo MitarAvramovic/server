@@ -1,0 +1,28 @@
+uv venv
+uv pip install django djangorestframework ruff
+uv pip freeze > requirements.txt
+[.gitignore]
+
+django-admin startproject config .
+
+python manage.py startapp accounts
+
+---
+
+["accounts",]
+[AUTH_USER_MODEL = "accounts.CustomUser"]
+
+Django = [apps.py, admin.py, models.py, views.py, urls.py]
+DRF = [serializers.py]
+
+---
+
+python manage.py check
+
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
+python manage.py runserver
+
+---
