@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    "rest_framework",
     "accounts",
     "books",
 ]
@@ -90,3 +91,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+}

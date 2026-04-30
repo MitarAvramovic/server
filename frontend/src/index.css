@@ -1,58 +1,136 @@
 body {
-    background-color: bisque;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1d2671, #c33764);
+  color: white;
 }
 
+/* layout */
 .main-base {
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.book-list {
-    margin: 50px auto 50px auto;
-    padding: 50px;
-    background-color: beige;
-    width: 60%;
-    border-radius: 5px; 
+.container {
+  width: 90%;
+  max-width: 700px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-button {
-    margin: 0 5px;
-    border-radius: 5px;
-    padding: 5px 8px;
+/* title */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
 }
 
-button:hover {
-    background-color: black;
-    color: white;
-}
-
-ul {
-    margin-top: 20px;
-}
-
-li {
-    margin: 10px 0;
+/* form */
+.form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 input {
-    padding: 5px 8px;
-    margin: 0 5px;
-    width: 150px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 150px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
-@media(max-width: 767px) {
-    .book-list {
-        margin: 50px auto 50px auto;
-        padding: 5px;
-        background-color: beige;
-        width: 90%;
-        border-radius: 5px; 
-    }
+input::placeholder {
+  color: #ddd;
+}
 
-    input {
-        padding: 5px 8px;
-        margin: 5px 0;
-        width: 250px;
-    }
+/* buttons */
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
 
-    
+button:hover {
+  transform: scale(1.05);
+  background: white;
+  color: black;
+}
+
+button.primary {
+  background: #00c6ff;
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+}
+
+button.danger {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+
+/* list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+}
+
+/* card */
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* text */
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.text span {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* actions */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* responsive */
+@media(max-width: 600px) {
+  .card {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

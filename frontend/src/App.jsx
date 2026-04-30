@@ -11,7 +11,6 @@ function App() {
   const [editTitle, setEditTitle] = useState("");
   const [editAuthor, setEditAuthor] = useState("");
 
-  // 🔹 READ (GET)
   const fetchBooks = () => {
     fetch(API)
       .then((res) => res.json())
@@ -23,7 +22,6 @@ function App() {
     fetchBooks();
   }, []);
 
-  // 🔹 CREATE (POST)
   const addBook = () => {
     fetch(API, {
       method: "POST",
@@ -40,7 +38,6 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  // 🔹 DELETE
   const deleteBook = (id) => {
     fetch(API + id + "/", {
       method: "DELETE",
@@ -49,7 +46,6 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  // 🔹 PUT (full update)
   const updateBook = (id) => {
     fetch(API + id + "/", {
       method: "PUT",
@@ -68,7 +64,6 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  // 🔹 PATCH (partial update)
   const patchBook = (id) => {
     const data = {};
     if (editTitle) data.title = editTitle;
@@ -89,76 +84,78 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Knjige</h1>
+    <div className="main-base">
+      <div className="container">
+        <h1>📚 Book Manager</h1>
 
-      <div className="book-list">
-      {/* ➕ CREATE */}
-      <div>
-        <input
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          placeholder="Author"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <button onClick={addBook}>Dodaj</button>
-      </div>
+        {/* CREATE */}
+        <div className="form">
+          <input
+            placeholder="Book title..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            placeholder="Author..."
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+          <button className="primary" onClick={addBook}>
+            Add Book
+          </button>
+        </div>
 
-      {/* 📚 LIST */}
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {books.map((book) => (
-          <li key={book.id}>
-            {editId === book.id ? (
-              <>
-                <input
-                  placeholder="Title"
-                  value={editTitle}
-                  onChange={(e) => setEditTitle(e.target.value)}
-                />
-                <input
-                  placeholder="Author"
-                  value={editAuthor}
-                  onChange={(e) => setEditAuthor(e.target.value)}
-                />
+        {/* LIST */}
+        <ul>
+          {books.map((book) => (
+            <li key={book.id} className="card">
+              {editId === book.id ? (
+                <>
+                  <input
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                  />
+                  <input
+                    value={editAuthor}
+                    onChange={(e) => setEditAuthor(e.target.value)}
+                  />
 
-                <button onClick={() => updateBook(book.id)}>
-                  PUT
-                </button>
+                  <div className="actions">
+                    <button onClick={() => updateBook(book.id)}>PUT</button>
+                    <button onClick={() => patchBook(book.id)}>PATCH</button>
+                    <button onClick={() => setEditId(null)}>Cancel</button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text">
+                    <strong>{book.title}</strong>
+                    <span>{book.author}</span>
+                  </div>
 
-                <button onClick={() => patchBook(book.id)}>
-                  PATCH
-                </button>
+                  <div className="actions">
+                    <button
+                      onClick={() => {
+                        setEditId(book.id);
+                        setEditTitle(book.title);
+                        setEditAuthor(book.author);
+                      }}
+                    >
+                      Edit
+                    </button>
 
-                <button onClick={() => setEditId(null)}>
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <>
-                {book.title} - {book.author}
-
-                <button
-                  onClick={() => {
-                    setEditId(book.id);
-                    setEditTitle(book.title);
-                    setEditAuthor(book.author);
-                  }}
-                >
-                  Edit
-                </button>
-
-                <button onClick={() => deleteBook(book.id)}>
-                  Delete
-                </button>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+                    <button
+                      className="danger"
+                      onClick={() => deleteBook(book.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
